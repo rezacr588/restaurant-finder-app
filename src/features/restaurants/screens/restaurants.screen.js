@@ -4,11 +4,7 @@ import { StatusBar, SafeAreaView , FlatList } from 'react-native';
 import { RestaurantsInfoCard } from "../components/restaurant-info-card.component";
 import styled from 'styled-components/native';
 import { Spacer } from "../../../components/spacer/spacer.component";
-
-const SafeArea = styled(SafeAreaView)`
-  flex: 1;
-  ${StatusBar.currentHeight && `margin-top: ${StatusBar.currentHeight}px;`}
-`
+import { SafeArea } from '../../../components/utility/safe-area.component';
 
 const SearchWrapper = styled.View`
   padding: ${props => props.theme.space[3]};
