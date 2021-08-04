@@ -7,9 +7,16 @@ import AppLoading from 'expo-app-loading';
 import { useFonts as useLato, Lato_400Regular } from '@expo-google-fonts/lato';
 import { useFonts as useOswald, Oswald_400Regular } from '@expo-google-fonts/oswald';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import {Text} from "react-native"
+import { Text } from "react-native"
 import { NavigationContainer } from '@react-navigation/native'
 import { SafeArea } from './src/components/utility/safe-area.component'
+import { Ionicons } from "@expo/vector-icons";
+
+const TAB_ICON = {
+  Restaurants: "md-restaurant",
+  Map: "md-map",
+  Settings: "md-settings",
+};
 
 const Tab = createBottomTabNavigator()
 
@@ -27,18 +34,27 @@ const Map = () => (
 
 const Screens = [
   {
-    name: "map",
+    name: "Map",
     component: Map
   },
   {
-    name: "settings",
+    name: "Settings",
     component: Settings
   },
   {
-    name: "restaurants",
+    name: "Restaurants",
     component: RestaurantsScreen
   },
 ]
+
+const createScreenOptions = ({ route }) => {
+  const iconName = TAB_ICON[route.name]
+  return {
+    tabBarIcon: ({ size, color }) => (
+      <Ionicons name={iconName} size={size} color={color} />
+    )
+  }
+}
 
 export default function App() {
 
@@ -57,7 +73,13 @@ export default function App() {
       <>
         <ThemeProvider theme={theme} >
           <NavigationContainer>
-            <Tab.Navigator>
+            <Tab.Navigator
+              screenOptions={createScreenOptions}
+              tabBarOptions={{
+                activeTintColor: "tomato",
+                inactiveTintColor: "gray",
+              }}
+            >
               {Screens.map(screen => (
                 <Tab.Screen component={screen.component} name={screen.name} />
               ))}
