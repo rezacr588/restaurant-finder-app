@@ -81,11 +81,10 @@ export default function App() {
               }}
             >
               {Screens.map(screen => (
-                <Tab.Screen component={screen.component} name={screen.name} />
+                <Tab.Screen key={screen.name} component={screen.component} name={screen.name} />
               ))}
             </Tab.Navigator>
           </NavigationContainer>
-          <RestaurantsScreen />
         </ThemeProvider>
         <ExpoStatusBar style="auto" />
       </>
