@@ -1,6 +1,6 @@
 import React from 'react';
 import { Searchbar } from 'react-native-paper';
-import { StatusBar, SafeAreaView , FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import { RestaurantsInfoCard } from "../components/restaurant-info-card.component";
 import styled from 'styled-components/native';
 import { Spacer } from "../../../components/spacer/spacer.component";
