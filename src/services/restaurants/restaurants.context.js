@@ -6,7 +6,7 @@ export const RestaurantContext = createContext()
 export const RestaurantContextProvider = ({ children }) => {
 
   const [restaurants, setRestaurants] = useState([])
-  const [isloading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
   
   const retrieveRestaurants = () => {
@@ -34,7 +34,7 @@ export const RestaurantContextProvider = ({ children }) => {
   return (
     <RestaurantContext.Provider value={{
       restaurants,
-      isloading,
+      isLoading,
       error
     }} >
       { children }
