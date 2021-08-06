@@ -11,6 +11,7 @@ import { Text } from "react-native"
 import { NavigationContainer } from '@react-navigation/native'
 import { SafeArea } from './src/components/utility/safe-area.component'
 import { Ionicons } from "@expo/vector-icons";
+import { RestaurantContextProvider } from './src/services/restaurants/restaurants.context'
 
 const TAB_ICON = {
   Restaurants: "md-restaurant",
@@ -74,15 +75,17 @@ export default function App() {
     return (
       <>
         <ThemeProvider theme={theme} >
-          <NavigationContainer>
-            <Tab.Navigator
-              screenOptions={createScreenOptions}
-            >
-              {Screens.map(screen => (
-                <Tab.Screen key={screen.name} component={screen.component} name={screen.name} />
-              ))}
-            </Tab.Navigator>
-          </NavigationContainer>
+          <RestaurantContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator
+                screenOptions={createScreenOptions}
+              >
+                {Screens.map(screen => (
+                  <Tab.Screen key={screen.name} component={screen.component} name={screen.name} />
+                ))}
+              </Tab.Navigator>
+            </NavigationContainer>
+          </RestaurantContextProvider>
         </ThemeProvider>
         <ExpoStatusBar style="auto" />
       </>
