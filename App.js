@@ -12,7 +12,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { SafeArea } from './src/components/utility/safe-area.component'
 import { Ionicons } from "@expo/vector-icons";
 import { RestaurantContextProvider } from './src/services/restaurants/restaurants.context'
-
+import { LocationContextProvider } from "./src/services/location/location.context";
 const TAB_ICON = {
   Restaurants: "md-restaurant",
   Map: "md-map",
@@ -75,17 +75,19 @@ export default function App() {
     return (
       <>
         <ThemeProvider theme={theme} >
-          <RestaurantContextProvider>
-            <NavigationContainer>
-              <Tab.Navigator
-                screenOptions={createScreenOptions}
-              >
-                {Screens.map(screen => (
-                  <Tab.Screen key={screen.name} component={screen.component} name={screen.name} />
-                ))}
-              </Tab.Navigator>
-            </NavigationContainer>
-          </RestaurantContextProvider>
+          <LocationContextProvider>
+            <RestaurantContextProvider>
+              <NavigationContainer>
+                <Tab.Navigator
+                  screenOptions={createScreenOptions}
+                >
+                  {Screens.map(screen => (
+                    <Tab.Screen key={screen.name} component={screen.component} name={screen.name} />
+                  ))}
+                </Tab.Navigator>
+              </NavigationContainer>
+            </RestaurantContextProvider>
+          </LocationContextProvider>
         </ThemeProvider>
         <ExpoStatusBar style="auto" />
       </>
