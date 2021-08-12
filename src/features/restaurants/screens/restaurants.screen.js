@@ -8,6 +8,7 @@ import { SafeArea } from '../../../components/utility/safe-area.component';
 import { RestaurantContext } from '../../../services/restaurants/restaurants.context';
 import { Search } from '../components/search.component';
 import { FavouritesBar } from '../../../components/favourites/favourites-bar.component';
+import { FavouritesContext } from '../../../services/favourites/favourites.context';
 
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -27,6 +28,7 @@ const LoadingContainer = styled.View`
 
 export const RestaurantsScreen = ({navigation}) => {
   const { restaurants, isLoading } = useContext(RestaurantContext)
+  const { favourites } = useContext(FavouritesContext)
   const [isToggled, setIsToggled] = useState(false)
 
   return (
@@ -42,15 +44,21 @@ export const RestaurantsScreen = ({navigation}) => {
           setIsToggled((prevToggle) => !prevToggle)
         }}
       />
-      {isToggled && <FavouritesBar />}
+      {
+        isToggled &&
+          <FavouritesBar
+            favouriteRestaurants={favourites}
+            onNavigate={navigation.navigate}
+          />
+      }
       <RestaurantList
         data={restaurants}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={
-            () => navigation.navigate("RestaurantDetail", {
-              restaurant: item
-            })
-          }>
+          <TouchableOpacity
+            onPress={
+              () => navigation.navigate("RestaurantDetail", { restaurant: item })
+            }
+          >
             <Spacer position="bottom" size="large">
               <RestaurantsInfoCard restaurant={item} />
             </Spacer>
