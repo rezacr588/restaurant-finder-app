@@ -9,7 +9,9 @@ import { RestaurantContextProvider } from './src/services/restaurants/restaurant
 import { LocationContextProvider } from "./src/services/locations/location.context";
 import { Navigation } from "./src/infrastructure/navigation"
 import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
-import firebase from 'firebase/app'
+import * as firebase from 'firebase'
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD78j_dckakL36TkI8kpJ0ZMps7OjIS1po",
@@ -20,9 +22,25 @@ const firebaseConfig = {
   appId: "1:875326891819:web:e8a987a061dc5c53b3476e"
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig)
+};
 
 export default function App() {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  
+  useEffect(() => {
+    setTimeout(() => {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword("rezacr588@gmail.com", "1940531071Rr!")
+        .then((user) => {
+          setIsAuthenticated(true)
+        })
+        .catch(e => console.log(e))
+    }, 2000)
+  }, [])
 
   const [latoLoaded] = useLato({
     Lato_400Regular
@@ -31,6 +49,8 @@ export default function App() {
   const [oswaldLoaded] = useOswald({
     Oswald_400Regular
   })
+
+  if (!isAuthenticated) return null;
 
   if(!latoLoaded || !oswaldLoaded) {
     return <AppLoading />
