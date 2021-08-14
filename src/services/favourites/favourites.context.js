@@ -7,34 +7,34 @@ export const FavouritesContextProvider = ({ children }) => {
   const [favourites, setFavourites] = useState([]);
 
   const add = (restaurant) => {
-    setFavourites([...favourites, restaurant]);
+    setFavourites(prevFavourites => [...prevFavourites, restaurant]);
   };
 
-  const storeFavourirtes = async (value) => {
+  const storeFavourites = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
-      await AsyncStorage.setItem('@favourites', jsonValue)
+      await AsyncStorage.setItem('@favourites1', jsonValue)
     } catch (e) {
       console.log(e)
     }
   }
 
-  const getFavourites = async () => {
+  const loadFavourites = async () => {
     try {
-      const jsonValue = await AsyncStorage.getItem('@favourites')
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
+      const jsonValue = await AsyncStorage.getItem('@favourites1')
+      jsonValue && setFavourites(JSON.parse(jsonValue))
     } catch(e) {
       console.log(e)
     }
   }
 
   useEffect(() => {
-    setFavourites(() => getFavourites())
+    loadFavourites()
   }, [])
   
   useEffect(() => {
-    storeFavourirtes(favourites)
-  },[favourites])
+    storeFavourites(favourites)
+  },[add, remove])
 
   const remove = (restaurant) => {
     const newFavourites = favourites.filter(
@@ -42,6 +42,7 @@ export const FavouritesContextProvider = ({ children }) => {
     );
     setFavourites(newFavourites);
   };
+
   return (
     <FavouritesContext.Provider
       value={{
