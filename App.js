@@ -10,8 +10,7 @@ import { LocationContextProvider } from "./src/services/locations/location.conte
 import { Navigation } from "./src/infrastructure/navigation"
 import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
 import * as firebase from 'firebase'
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
 
 const firebaseConfig = {
   apiKey: "AIzaSyD78j_dckakL36TkI8kpJ0ZMps7OjIS1po",
@@ -28,20 +27,6 @@ if (!firebase.apps.length) {
 
 export default function App() {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  
-  useEffect(() => {
-    setTimeout(() => {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword("rezacr588@gmail.com", "1940531071Rr!")
-        .then((user) => {
-          setIsAuthenticated(true)
-        })
-        .catch(e => console.log(e))
-    }, 2000)
-  }, [])
-
   const [latoLoaded] = useLato({
     Lato_400Regular
   })
@@ -50,21 +35,21 @@ export default function App() {
     Oswald_400Regular
   })
 
-  if (!isAuthenticated) return null;
-
   if(!latoLoaded || !oswaldLoaded) {
     return <AppLoading />
   } else {
     return (
       <>
         <ThemeProvider theme={theme} >
-          <FavouritesContextProvider>
-            <LocationContextProvider>
-              <RestaurantContextProvider>
-                <Navigation />
-              </RestaurantContextProvider>
-            </LocationContextProvider>
-          </FavouritesContextProvider>
+          <AuthenticationContextProvider>
+            <FavouritesContextProvider>
+              <LocationContextProvider>
+                <RestaurantContextProvider>
+                  <Navigation />
+                </RestaurantContextProvider>
+              </LocationContextProvider>
+            </FavouritesContextProvider>
+          </AuthenticationContextProvider>
         </ThemeProvider>
         <ExpoStatusBar style="auto" />
       </>
