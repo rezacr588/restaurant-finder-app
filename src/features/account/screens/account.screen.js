@@ -1,6 +1,8 @@
 import React from "react"
-import { AccountBackground } from "../components/background.component"
+import { AccountBackground, AccountCover } from "../components/styles.component"
 
 export const AccountScreen = () => (
-  <AccountBackground />
+  <AccountBackground>
+    <AccountCover />
+  </AccountBackground>
 )
