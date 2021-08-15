@@ -1,5 +1,5 @@
 import React from "react"
-import { AccountBackground } from "../components/styles.component"
+import { AccountBackground, AccountCover } from "../components/styles.component"
 
 export const LoginScreen = () => (
   <AccountBackground>
