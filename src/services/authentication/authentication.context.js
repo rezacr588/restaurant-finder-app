@@ -2,7 +2,7 @@ import React , {createContext} from "react"
 import { useState } from "react"
 import { loginRequest } from "./authentication.service"
 
-const AuthenticationContext = createContext()
+export const AuthenticationContext = createContext()
 
 export const AuthenticationContextProvider = ({children}) => {
 
