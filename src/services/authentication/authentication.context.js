@@ -10,8 +10,9 @@ export const AuthenticationContextProvider = ({children}) => {
   const [isLoading, setIsLoading ] = useState(false)
   const [error, setError] = useState(null)
   
-  const onLogin = (email, password) =>
-    loginRequest(email, password)
+  const onLogin = (email, password) => {
+    setIsLoading(true)
+    return loginRequest(email, password)
       .then(u => {
         setUser(u)
         setIsLoading(false)
@@ -20,12 +21,15 @@ export const AuthenticationContextProvider = ({children}) => {
         setError(e.toString())
         setIsLoading(false)
       })
+  }
+
   
   const onRegister = (email, password, repeatedPassword) => {
     if (password != repeatedPassword) {
       setError("Passwords do not match!")
       return null
     }
+    setIsLoading(true)
     return registerRequest(email, password)
       .then(u => {
         setUser(u)
@@ -45,7 +49,8 @@ export const AuthenticationContextProvider = ({children}) => {
         isLoading,
         error,
         onLogin,
-        onRegister
+        onRegister,
+        isAuthenticated: !!user
       }}
     >
       {children}
