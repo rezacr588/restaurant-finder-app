@@ -12,7 +12,7 @@ import {
   Title
 } from "../components/styles.component"
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
-import { Spacer } from "../../../components/spacer/spacer.component"
+import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 
 export const LoginScreen = ({ navigation }) => {
@@ -63,15 +63,15 @@ export const LoginScreen = ({ navigation }) => {
             Login
           </AuthButton>
         </Spacer>
-        <Spacer size="large">
-          <AuthButton
-            mode="contained"
-            onPress={() => navigation.goBack()}
-          >
-            Back
-          </AuthButton>
-        </Spacer>
       </AccountContainer>
+      <Spacer size="large">
+        <AuthButton
+          mode="contained"
+          onPress={() => navigation.goBack()}
+        >
+          Back
+        </AuthButton>
+      </Spacer>
     </AccountBackground>
   )
 }
