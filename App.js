@@ -5,10 +5,7 @@ import { theme } from "./src/infrastructure/theme"
 import AppLoading from 'expo-app-loading';
 import { useFonts as useLato, Lato_400Regular } from '@expo-google-fonts/lato';
 import { useFonts as useOswald, Oswald_400Regular } from '@expo-google-fonts/oswald';
-import { RestaurantContextProvider } from './src/services/restaurants/restaurants.context'
-import { LocationContextProvider } from "./src/services/locations/location.context";
 import { Navigation } from "./src/infrastructure/navigation"
-import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
 import * as firebase from 'firebase'
 import { AuthenticationContextProvider } from './src/services/authentication/authentication.context';
 
@@ -42,13 +39,7 @@ export default function App() {
       <>
         <ThemeProvider theme={theme} >
           <AuthenticationContextProvider>
-            <FavouritesContextProvider>
-              <LocationContextProvider>
-                <RestaurantContextProvider>
-                  <Navigation />
-                </RestaurantContextProvider>
-              </LocationContextProvider>
-            </FavouritesContextProvider>
+            <Navigation />
           </AuthenticationContextProvider>
         </ThemeProvider>
         <ExpoStatusBar style="auto" />
