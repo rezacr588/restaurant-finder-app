@@ -3,10 +3,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { AccountScreen } from "../../features/account/screens/account.screen"
 import { LoginScreen } from "../../features/account/screens/login.screen"
 import { RegisterScreen } from "../../features/account/screens/register.screen"
+
 const Stack = createStackNavigator()
 
-export const AccountNavigator = () => {
-  return (
+export const AccountNavigator = () =>  (
     <Stack.Navigator screenOptions={{
       headerShown: false
     }}>
@@ -24,4 +24,3 @@ export const AccountNavigator = () => {
       />
     </Stack.Navigator>
   )
-}

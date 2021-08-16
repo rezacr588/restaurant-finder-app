@@ -22,6 +22,7 @@ export const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("")
   
   const [password, setPassword] = useState("")
+  
   const [repeatedPassword, setRepeatedPassword] = useState("")
 
   const { onRegister, error, isLoading } = useContext(AuthenticationContext)

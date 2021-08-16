@@ -1,7 +1,7 @@
 import React , {createContext} from "react"
 import { useState } from "react"
 import { loginRequest, registerRequest } from "./authentication.service"
-
+import * as firebase from "firebase"
 export const AuthenticationContext = createContext()
 
 export const AuthenticationContextProvider = ({children}) => {
@@ -10,6 +10,14 @@ export const AuthenticationContextProvider = ({children}) => {
   const [isLoading, setIsLoading ] = useState(false)
   const [error, setError] = useState(null)
   
+  firebase.auth().onAuthStateChanged((usr) => {
+    if (usr) {
+      setUser(usr)
+    } else {
+      setIsLoading(false)
+    }
+  })
+
   const onLogin = (email, password) => {
     setIsLoading(true)
     return loginRequest(email, password)
@@ -22,7 +30,6 @@ export const AuthenticationContextProvider = ({children}) => {
         setIsLoading(false)
       })
   }
-
   
   const onRegister = (email, password, repeatedPassword) => {
     if (password != repeatedPassword) {
@@ -41,6 +48,11 @@ export const AuthenticationContextProvider = ({children}) => {
       })
   }
 
+  const onLogout = () => 
+    firebase
+      .auth()
+      .signOut()
+      .then(() => setUser(null))
 
   return (
     <AuthenticationContext.Provider
@@ -50,6 +62,7 @@ export const AuthenticationContextProvider = ({children}) => {
         error,
         onLogin,
         onRegister,
+        onLogout,
         isAuthenticated: !!user
       }}
     >
