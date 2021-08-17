@@ -1,6 +1,6 @@
 import React , {useContext, useState} from 'react';
 import { ActivityIndicator, Colors } from 'react-native-paper';
-import { FlatList, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { RestaurantsInfoCard } from "../components/restaurant-info-card.component";
 import styled from 'styled-components/native';
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -9,12 +9,7 @@ import { RestaurantContext } from '../../../services/restaurants/restaurants.con
 import { Search } from '../components/search.component';
 import { FavouritesBar } from '../../../components/favourites/favourites-bar.component';
 import { FavouritesContext } from '../../../services/favourites/favourites.context';
-
-const RestaurantList = styled(FlatList).attrs({
-  contentContainerStyle: {
-    padding: 16,
-  }
-})``;
+import { RestaurantList } from '../components/restaurant-list.styles';
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
