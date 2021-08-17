@@ -15,7 +15,9 @@ const AvatarContainer = styled.View`
 `
 
 export const SettingsScreen = ({ navigation }) => {
-  const {onLogout, user} = useContext(AuthenticationContext)
+
+  const { onLogout, user } = useContext(AuthenticationContext)
+  
   return (
     <SafeArea>
       <AvatarContainer>
