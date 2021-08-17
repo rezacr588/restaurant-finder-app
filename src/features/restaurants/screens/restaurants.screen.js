@@ -10,6 +10,7 @@ import { Search } from '../components/search.component';
 import { FavouritesBar } from '../../../components/favourites/favourites-bar.component';
 import { FavouritesContext } from '../../../services/favourites/favourites.context';
 import { RestaurantList } from '../components/restaurant-list.styles';
+import { FadeInView } from '../../../components/animation/fade-in.animation';
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
@@ -55,7 +56,9 @@ export const RestaurantsScreen = ({navigation}) => {
             }
           >
             <Spacer position="bottom" size="large">
-              <RestaurantsInfoCard restaurant={item} />
+              <FadeInView>
+                <RestaurantsInfoCard restaurant={item} />
+              </FadeInView>
             </Spacer>
           </TouchableOpacity>
         )}
