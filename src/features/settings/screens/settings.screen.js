@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 import { Avatar, List } from "react-native-paper";
-import { useCallback } from "react/cjs/react.production.min";
 import styled from "styled-components/native";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
@@ -31,7 +31,7 @@ export const SettingsScreen = ({ navigation }) => {
 
   useFocusEffect(
     useCallback(() => {
-
+      getProfilePicture(user)
     }, [user])
   )
   
@@ -40,7 +40,8 @@ export const SettingsScreen = ({ navigation }) => {
       <AvatarContainer>
         <TouchableOpacity onPress={() => navigation.navigate("Camera")}>
           {
-            photo ?
+            photo
+              ?
               <Avatar.Image
                 size={180}
                 source={{ uri: photo }}
@@ -53,7 +54,6 @@ export const SettingsScreen = ({ navigation }) => {
                 backgroundColor="#2182BD"
               />
           }
-          
         </TouchableOpacity>
         <Spacer position="top" size="large">
           <Text variant="label">{user.email}</Text>
